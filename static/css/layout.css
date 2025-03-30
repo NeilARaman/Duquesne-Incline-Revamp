@@ -580,10 +580,10 @@
 
 .accessibility-list li {
     position: relative;
-    padding-left: 1.5rem;
     margin-bottom: 0.75rem;
 }
 
+/* Removing this rule to eliminate the checkmarks
 .accessibility-list li::before {
     content: "✓";
     color: var(--accent-color);
@@ -591,6 +591,7 @@
     left: 0;
     font-weight: bold;
 }
+*/
 
 /* Responsive Layouts */
 @media (max-width: 992px) {

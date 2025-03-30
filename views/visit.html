@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Plan your visit to the Duquesne Incline in Pittsburgh. Find hours, fares, directions, and everything you need to know for your trip.">
     <title>Visit - The Duquesne Incline</title>
+    
+    <!-- Anti-flickering optimization -->
+    <style>
+        /* Force hardware acceleration for smoother scrolling and prevent flickering */
+        html {
+            overflow-x: hidden;
+        }
+        html, body {
+            scroll-behavior: smooth;
+        }
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+    
     <link rel="stylesheet" href="../static/css/styles.css">
     <link rel="stylesheet" href="../static/css/visit.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -224,8 +240,8 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h4>Contact Information</h4>
-                <p>Phone: 412.381.1665</p>
-                <p>Email: duq.incline@duquesneincline.org</p>
+                <p><i class="fas fa-phone fa-fw" aria-hidden="true"></i> <a href="tel:4123811665">Phone: (412) 381-1665</a></p>
+                <p><i class="fas fa-envelope fa-fw" aria-hidden="true"></i> <a href="mailto:duq.incline@duquesneincline.org">Email: duq.incline@duquesneincline.org</a></p>
                 <p>Lower Station: 1197 West Carson St, Pittsburgh, PA 15219</p>
                 <p>Upper Station: 1220 Grandview Ave, Pittsburgh, PA 15211</p>
             </div>

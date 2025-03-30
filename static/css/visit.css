@@ -1,5 +1,32 @@
 /* visit.css - Custom styles for Duquesne Incline Visit page */
 
+/* ====== ANTI-FLICKERING FIXES ====== */
+/* These properties help prevent flickering during scrolling */
+body {
+    /* Enable hardware acceleration for smoother scrolling */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+}
+
+/* Apply hardware acceleration to sections with hover effects */
+.info-card,
+.weather-card,
+.location-card,
+.info-grid-item,
+.gallery-item,
+.cta-button {
+    /* Optimize rendering performance for transforms */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
 /* ====== CORE VARIABLES ====== */
 :root {
     --primary-color: #A52C38;     /* Burgundy */
@@ -105,12 +132,14 @@
     border: 1px solid var(--accent-color);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     text-align: center;
+    /* Prevent flickering with hardware acceleration */
+    transform: translate3d(0, 0, 0);
 }
 
 .info-card:hover {
-    transform: translateY(-5px);
+    transform: translate3d(0, -5px, 0);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -160,11 +189,13 @@
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    /* Prevent flickering with hardware acceleration */
+    transform: translate3d(0, 0, 0);
 }
 
 .weather-card:hover {
-    transform: translateY(-5px);
+    transform: translate3d(0, -5px, 0);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -557,11 +588,13 @@
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    /* Prevent flickering with hardware acceleration */
+    transform: translate3d(0, 0, 0);
 }
 
 .location-card:hover {
-    transform: translateY(-5px);
+    transform: translate3d(0, -5px, 0);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -686,7 +719,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate3d(-50%, -50%, 0);
     width: 80px;
     height: 80px;
     background-color: rgba(165, 44, 56, 0.8);
@@ -697,6 +730,9 @@
     cursor: pointer;
     z-index: 10;
     transition: background-color 0.3s ease;
+    /* Add hardware acceleration */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .video-play-button::before {
@@ -743,6 +779,10 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    /* Add hardware acceleration */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
 }
 
 .gallery-overlay {
@@ -769,7 +809,7 @@
 }
 
 .gallery-item:hover img {
-    transform: scale(1.1);
+    transform: translate3d(0, 0, 0) scale(1.1);
 }
 
 .gallery-item:hover .gallery-overlay {
@@ -796,14 +836,16 @@
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
     height: 100%; /* Ensure equal height */
     display: flex;
     flex-direction: column;
+    /* Prevent flickering with hardware acceleration */
+    transform: translate3d(0, 0, 0);
 }
 
 .info-grid-item:hover {
-    transform: translateY(-5px);
+    transform: translate3d(0, -5px, 0);
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
@@ -844,20 +886,22 @@
     text-transform: uppercase;
     text-decoration: none;
     border-radius: 2px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    /* Prevent flickering with hardware acceleration */
+    transform: translate3d(0, 0, 0);
 }
 
 .cta-button:hover {
     background-color: #aa3e49;
-    transform: translateY(-3px);
+    transform: translate3d(0, -3px, 0);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     color: var(--light-color);
 }
 
 .cta-button:active {
     background-color: #8c2530;
-    transform: translateY(-1px);
+    transform: translate3d(0, -1px, 0);
 }
 
 /* ====== RESPONSIVE STYLES ====== */
