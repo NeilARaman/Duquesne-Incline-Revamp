@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your visit to the Duquesne Incline in Pittsburgh. Find hours, fares, directions, and everything you need to know for your trip.">
+    <title>Visit - The Duquesne Incline</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <link rel="stylesheet" href="../static/css/visit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="../static/js/main.js" defer></script>
+    <script src="../static/js/maps.js" defer></script>
+    <script src="../static/js/weather.js" defer></script>
+    <script src="../static/js/visit.js" defer></script>
+    <script src="../static/js/video.js" defer></script>
+    <script src="../static/js/tables.js" defer></script>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    
+    <header role="banner">
+        <div class="logo-container">
+            <a href="../index.html" aria-label="Return to homepage">
+                <img src="../static/images/Duquesne Incline Logo.png" alt="Duquesne Incline Logo" class="logo">
+            </a>
+        </div>
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="history.html">History</a></li>
+                <li><a href="visit.html" class="active" aria-current="page">Visit</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="gift-shop.html">Gift Shop</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main role="main" id="main-content">
+        <section class="hero" style="background-image: url('../static/images/Duquesne Incline Downward View.jpg');">
+            <div class="hero-content">
+                <h1>Plan Your Visit</h1>
+                <p class="tagline">Experience Pittsburgh's historic cable car and breathtaking views</p>
+            </div>
+        </section>
+
+        <nav class="section-nav" aria-label="Visit Page Sections">
+            <ul>
+                <li><a href="#quick-info">Quick Info</a></li>
+                <li><a href="#weather">Weather</a></li>
+                <li><a href="#location">Location</a></li>
+                <li><a href="#accessibility">Accessibility</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#info">Visitor Info</a></li>
+            </ul>
+        </nav>
+
+        <section class="quick-info-panel" id="quick-info">
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-clock fa-2x" aria-hidden="true"></i>
+                </div>
+                <h3>Hours</h3>
+                <p>Open daily 5:30am - 12:30am, including all holidays</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-ticket-alt fa-2x" aria-hidden="true"></i>
+                </div>
+                <h3>Fares</h3>
+                <p>Adults: $2.50, Children (6-11): $1.25, Seniors: Free</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-cloud fa-2x" aria-hidden="true"></i>
+                </div>
+                <h3>Weather</h3>
+                <p>Check current conditions before planning your visit</p>
+            </div>
+            
+            <div class="info-card">
+                <div class="info-icon">
+                    <i class="fas fa-map-marker-alt fa-2x" aria-hidden="true"></i>
+                </div>
+                <h3>Location</h3>
+                <p>Upper: 1220 Grandview Ave.<br>Lower: 1197 West Carson St.</p>
+            </div>
+        </section>
+
+        <section class="weather-section" aria-labelledby="weather-heading" id="weather">
+            <div class="weather-container">
+                <div class="section-header">
+                    <h2 id="weather-heading"><i class="fas fa-cloud fa-fw" aria-hidden="true"></i> Current Conditions</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="weather-grid">
+                    <div class="weather-card" role="region" aria-label="Current weather">
+                        <div class="weather-header">
+                            <i class="fas fa-temperature-high" aria-hidden="true"></i>
+                            <h3>Current Weather</h3>
+                        </div>
+                        <div class="current-weather">
+                            <div class="weather-loading">
+                                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                <span>Loading weather information...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-card" role="region" aria-label="Weather forecast">
+                        <div class="weather-header">
+                            <i class="fas fa-calendar-day" aria-hidden="true"></i>
+                            <h3>3-Day Forecast</h3>
+                        </div>
+                        <ul class="forecast-list" role="list">
+                            <li class="weather-loading">
+                                <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                                <span>Loading forecast...</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="location-section" id="location">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-map-marker-alt fa-fw" aria-hidden="true"></i> Location & Directions</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="location-grid">
+                    <div class="location-card">
+                        <h3><i class="fas fa-arrow-down fa-fw" aria-hidden="true"></i> Lower Station</h3>
+                        <address>
+                            1197 West Carson St.<br>
+                            Pittsburgh, PA 15219
+                        </address>
+                        <p><i class="fas fa-parking fa-fw" aria-hidden="true"></i> Parking available at lower station lot.</p>
+                        <p><i class="fas fa-bus fa-fw" aria-hidden="true"></i> Port Authority buses stop nearby.</p>
+                    </div>
+                    <div class="location-card">
+                        <h3><i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i> Upper Station</h3>
+                        <address>
+                            1220 Grandview Ave.<br>
+                            Pittsburgh, PA 15211
+                        </address>
+                        <p><i class="fas fa-wheelchair fa-fw" aria-hidden="true"></i> Wheelchair accessible entrance and observation deck.</p>
+                        <p><i class="fas fa-binoculars fa-fw" aria-hidden="true"></i> Panoramic views of downtown Pittsburgh.</p>
+                    </div>
+                </div>
+                
+                <div class="map-container" id="map">
+                    <!-- Google Maps will be loaded here by maps.js -->
+                </div>
+            </div>
+        </section>
+
+        <section class="accessibility-section" id="accessibility">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-universal-access fa-fw" aria-hidden="true"></i> Accessibility Information</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <ul class="accessibility-list">
+                    <li class="success"><i class="fas fa-check-circle" aria-hidden="true"></i> The Upper Station located at 1220 Grandview Ave is wheelchair accessible.</li>
+                    <li class="success"><i class="fas fa-check-circle" aria-hidden="true"></i> The observation deck is wheelchair accessible.</li>
+                    <li class="success"><i class="fas fa-check-circle" aria-hidden="true"></i> The historic incline cars can accommodate wheelchairs up to 25 inches in width.</li>
+                    <li class="warning"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> There are many steps to traverse from the lower station parking lot.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="experience-section" id="experience">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-video fa-fw" aria-hidden="true"></i> Experience the Ride</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="video-container" data-video-id="bSLvrz5GraI">
+                    <!-- Updated to use privacy-enhanced mode for YouTube embed -->
+                    <div class="video-play-button" aria-label="Play video"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="additional-info" aria-labelledby="additional-info-heading" id="info">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="additional-info-heading"><i class="fas fa-info-circle fa-fw" aria-hidden="true"></i> Important Visitor Information</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-grid-item">
+                        <h3><i class="fas fa-money-bill-wave fa-fw" aria-hidden="true"></i> Payment</h3>
+                        <p>Exact cash fare upon arrival. Cash fares and Port Authority connect cards accepted. No debit or credit cards.</p>
+                    </div>
+                    <div class="info-grid-item">
+                        <h3><i class="fas fa-building fa-fw" aria-hidden="true"></i> Facilities</h3>
+                        <p>Sorry, no restrooms. The Duquesne Incline has been part of Pittsburgh's transportation system since 1877 like a trolley or the cable cars of San Francisco.</p>
+                    </div>
+                    <div class="info-grid-item">
+                        <h3><i class="fas fa-users fa-fw" aria-hidden="true"></i> Group Visits</h3>
+                        <p>School groups and bus tours are welcome. Educational visits have no extra charge for students and youth groups.</p>
+                    </div>
+                    <div class="info-grid-item">
+                        <h3><i class="fas fa-camera fa-fw" aria-hidden="true"></i> Photography</h3>
+                        <p>Photography is permitted and encouraged! The observation deck offers one of the best views of Pittsburgh's skyline.</p>
+                    </div>
+                    <!-- New cards added as per plan -->
+                    <div class="info-grid-item">
+                        <h3><i class="fas fa-binoculars fa-fw" aria-hidden="true"></i> What to Expect</h3>
+                        <p>The incline ride takes approximately 2-3 minutes. At the Upper Station, enjoy the observation deck with panoramic views of Pittsburgh's three rivers and downtown skyline. Historical photographs and mechanical displays are available for viewing.</p>
+                    </div>
+                    <div class="info-grid-item">
+                        <h3><i class="fas fa-gift fa-fw" aria-hidden="true"></i> Souvenirs</h3>
+                        <p>Visit our gift shop at the Upper Station to purchase Duquesne Incline souvenirs, postcards, books about Pittsburgh history, and locally made items. All proceeds support the preservation of the historic incline.</p>
+                    </div>
+                </div>
+                <div class="cta-container">
+                    <a href="contact.html" class="cta-button">Have Questions? Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Information</h4>
+                <p>Phone: 412.381.1665</p>
+                <p>Email: duq.incline@duquesneincline.org</p>
+                <p>Lower Station: 1197 West Carson St, Pittsburgh, PA 15219</p>
+                <p>Upper Station: 1220 Grandview Ave, Pittsburgh, PA 15211</p>
+            </div>
+            <div class="footer-section">
+                <h4>External Resources</h4>
+                <ul>
+                    <li><a href="https://www.visitpittsburgh.com/" target="_blank" rel="noopener noreferrer">Visit Pittsburgh</a></li>
+                    <li><a href="https://www.portauthority.org/" target="_blank" rel="noopener noreferrer">Port Authority of Allegheny County</a></li>
+                    <li><a href="https://www.heinzhistorycenter.org/" target="_blank" rel="noopener noreferrer">Heinz History Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <p class="copyright">&copy; 2025 Society for the Preservation of the Duquesne Heights Incline. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Google Maps API Script -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+</body>
+</html>
