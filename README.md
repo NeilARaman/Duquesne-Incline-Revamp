@@ -2,7 +2,7 @@
 
 A responsive, accessible website for the historic Duquesne Incline in Pittsburgh, showcasing its rich history, visitor information, and attractions.
 
-![Duquesne Incline](static/images/Duquesne%20Incline%20Hero%20Photo.jpg)
+![Duquesne Incline](static/images/Duquesne-Incline-Hero-Photo.jpg)
 
 ## Project Overview
 
