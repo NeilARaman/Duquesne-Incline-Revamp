@@ -1,12 +1,8 @@
-# Duquesne Incline Website
+# Project Overview
 
-A responsive, accessible website for the historic Duquesne Incline in Pittsburgh, showcasing its rich history, visitor information, and attractions.
+This is my take to build a responsive, accessible website for the Duquesne Incline in Pittsburgh, aiming to showcase its rich history, visitor information, and attractions. This website was built for 67-250, the Information Systems Milieux course @ Carnegie Mellon University.
 
 ![Duquesne Incline](static/images/Duquesne-Incline-Hero-Photo.jpg)
-
-## Project Overview
-
-This website serves as the official online presence for the Duquesne Incline, a century-old cable car and landmark in Pittsburgh. The website provides visitors with comprehensive information about the historic incline, including its history, visitor information, photo galleries, and a gift shop.
 
 ## Pages
 
@@ -36,7 +32,6 @@ This website serves as the official online presence for the Duquesne Incline, a 
 - JavaScript (ES6+)
 - jQuery (for enhanced interactions)
 - Font Awesome (for icons)
-- Google Maps API integration
 
 ## File Structure
 
@@ -91,13 +86,6 @@ Duquesne Incline Project/
 
 3. Open `index.html` in your browser, or use a local development server like Live Server for VS Code.
 
-### API Keys
-
-If you're setting up this project for development, you'll need to:
-
-1. Replace the Google Maps API key placeholder in `views/visit.html` with your own key
-2. Configure the weather API settings in `static/js/weather.js`
-
 ## Design Decisions
 
 - **Color Palette**: The website uses burgundy and gold tones inspired by the historic Duquesne Incline cars
@@ -128,13 +116,8 @@ This website follows WCAG 2.1 AA standards, including:
 
 - Photography: Various historical archives and modern photographers (credited in image captions)
 - Icons: Font Awesome
-- Weather Data: OpenWeatherMap API
-- Maps: Google Maps Platform
+- Weather Data: OpenWeatherMap
 
 ## License
 
-© 2025 Society for the Preservation of the Duquesne Heights Incline. All Rights Reserved.
-
----
-
-*This website was developed to promote and preserve the rich history of the Duquesne Incline for future generations.* 
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
