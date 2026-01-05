@@ -40,7 +40,7 @@ This website serves as the official online presence for the Duquesne Incline, a 
 
 ## File Structure
 
-```
+```bash
 Duquesne Incline Project/
 ├── index.html              # Home page
 ├── static/                 # Static assets directory
@@ -80,12 +80,14 @@ Duquesne Incline Project/
 ### Running Locally
 
 1. Clone the repository:
-   ```
+
+   ```bash
    git clone https://github.com/your-username/duquesne-incline-project.git
    ```
 
 2. Navigate to the project directory:
-   ```
+
+   ```bash
    cd duquesne-incline-project
    ```
 
@@ -108,6 +110,7 @@ If you're setting up this project for development, you'll need to:
 ## Browser Compatibility
 
 The website is tested and compatible with:
+
 - Chrome (latest)
 - Firefox (latest)
 - Safari (latest)
@@ -117,6 +120,7 @@ The website is tested and compatible with:
 ## Accessibility
 
 This website follows WCAG 2.1 AA standards, including:
+
 - Proper heading structure
 - Keyboard navigation support
 - Screen reader compatibility
@@ -137,4 +141,4 @@ This website follows WCAG 2.1 AA standards, including:
 
 ---
 
-*This website was developed to promote and preserve the rich history of the Duquesne Incline for future generations.* 
+*This website was developed to promote and preserve the rich history of the Duquesne Incline for future generations.*
