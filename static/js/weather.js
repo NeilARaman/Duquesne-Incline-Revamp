@@ -11,14 +11,67 @@ const PITTSBURGH_COORDS = {
     longitude: -79.9959
 };
 
+// Sanitize text to prevent XSS attacks
+function sanitizeText(text) {
+    if (text === null || text === undefined) {
+        return '';
+    }
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+}
+
+// Validate that a value is a finite number
+function isValidNumber(value) {
+    return typeof value === 'number' && Number.isFinite(value);
+}
+
 async function initWeather() {
     try {
         const weatherData = await fetchWeatherData();
+        if (!validateWeatherData(weatherData)) {
+            throw new Error('Invalid weather data received');
+        }
         updateWeatherDisplay(weatherData);
     } catch (error) {
         console.error('Error fetching weather data:', error);
         displayWeatherError();
     }
+}
+
+// Validate the structure of weather data from the API
+function validateWeatherData(data) {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+
+    // Validate current weather data
+    if (!data.current || typeof data.current !== 'object') {
+        return false;
+    }
+
+    const current = data.current;
+    if (!isValidNumber(current.temperature_2m) ||
+        !isValidNumber(current.relative_humidity_2m) ||
+        !isValidNumber(current.wind_speed_10m) ||
+        !isValidNumber(current.weather_code)) {
+        return false;
+    }
+
+    // Validate daily forecast data
+    if (!data.daily || typeof data.daily !== 'object') {
+        return false;
+    }
+
+    const daily = data.daily;
+    if (!Array.isArray(daily.time) ||
+        !Array.isArray(daily.temperature_2m_max) ||
+        !Array.isArray(daily.temperature_2m_min) ||
+        !Array.isArray(daily.weather_code)) {
+        return false;
+    }
+
+    return true;
 }
 
 async function fetchWeatherData() {
@@ -44,62 +97,128 @@ function updateCurrentWeather(current) {
     const currentWeatherDiv = document.querySelector('.current-weather');
     if (!currentWeatherDiv) return;
 
-    const weatherIcon = getWeatherIcon(current.weather_code);
+    const weatherCode = current.weather_code;
+    const weatherIcon = getWeatherIcon(weatherCode);
     const temperature = Math.round(current.temperature_2m);
-    const conditions = getWeatherDescription(current.weather_code);
+    const conditions = sanitizeText(getWeatherDescription(weatherCode));
+    const humidity = Math.round(current.relative_humidity_2m);
+    // Convert km/h to mph (API returns km/h by default)
+    const windSpeedMph = Math.round(current.wind_speed_10m * 0.621371);
 
-    currentWeatherDiv.innerHTML = `
-        <div class="temperature">
-            ${temperature}°C
-            <div class="conditions">
-                <i class="${weatherIcon}" aria-hidden="true"></i>
-                <span>${conditions}</span>
-            </div>
-        </div>
-        <div class="weather-details">
-            <div>Humidity: ${current.relative_humidity_2m}%</div>
-            <div>Wind: ${Math.round(current.wind_speed_10m)} mph</div>
-        </div>
-    `;
+    // Build DOM elements instead of using innerHTML with untrusted data
+    currentWeatherDiv.innerHTML = '';
+    
+    const tempDiv = document.createElement('div');
+    tempDiv.className = 'temperature';
+    tempDiv.textContent = `${temperature}°C`;
+
+    const conditionsDiv = document.createElement('div');
+    conditionsDiv.className = 'conditions';
+    
+    const iconElement = document.createElement('i');
+    iconElement.className = weatherIcon;
+    iconElement.setAttribute('aria-hidden', 'true');
+    
+    const conditionSpan = document.createElement('span');
+    conditionSpan.textContent = conditions;
+    
+    conditionsDiv.appendChild(iconElement);
+    conditionsDiv.appendChild(conditionSpan);
+    tempDiv.appendChild(conditionsDiv);
+
+    const detailsDiv = document.createElement('div');
+    detailsDiv.className = 'weather-details';
+    
+    const humidityDiv = document.createElement('div');
+    humidityDiv.textContent = `Humidity: ${humidity}%`;
+    
+    const windDiv = document.createElement('div');
+    windDiv.textContent = `Wind: ${windSpeedMph} mph`;
+    
+    detailsDiv.appendChild(humidityDiv);
+    detailsDiv.appendChild(windDiv);
+
+    currentWeatherDiv.appendChild(tempDiv);
+    currentWeatherDiv.appendChild(detailsDiv);
 }
 
 function updateForecast(daily) {
     const forecastList = document.querySelector('.forecast-list');
     if (!forecastList) return;
 
-    const forecastHTML = daily.time.slice(1, 4).map((date, index) => {
-        const day = new Date(date).toLocaleDateString('en-US', { weekday: 'short' });
-        const high = Math.round(daily.temperature_2m_max[index + 1]);
-        const low = Math.round(daily.temperature_2m_min[index + 1]);
-        const icon = getWeatherIcon(daily.weather_code[index + 1]);
+    // Clear existing content
+    forecastList.innerHTML = '';
 
-        return `
-            <li class="forecast-item">
-                <span class="forecast-day">${day}</span>
-                <span class="forecast-icon">
-                    <i class="${icon}" aria-hidden="true"></i>
-                </span>
-                <span class="forecast-temp">${high}° / ${low}°</span>
-            </li>
-        `;
-    }).join('');
+    // Get next 3 days (skip today at index 0)
+    const daysToShow = Math.min(3, daily.time.length - 1);
+    
+    for (let i = 0; i < daysToShow; i++) {
+        const dateIndex = i + 1;
+        const dateStr = daily.time[dateIndex];
+        
+        if (!dateStr) continue;
 
-    forecastList.innerHTML = forecastHTML;
+        const day = new Date(dateStr).toLocaleDateString('en-US', { weekday: 'short' });
+        const high = Math.round(daily.temperature_2m_max[dateIndex]);
+        const low = Math.round(daily.temperature_2m_min[dateIndex]);
+        const weatherCode = daily.weather_code[dateIndex];
+        const icon = getWeatherIcon(weatherCode);
+
+        const li = document.createElement('li');
+        li.className = 'forecast-item';
+
+        const daySpan = document.createElement('span');
+        daySpan.className = 'forecast-day';
+        daySpan.textContent = sanitizeText(day);
+
+        const iconSpan = document.createElement('span');
+        iconSpan.className = 'forecast-icon';
+        
+        const iconElement = document.createElement('i');
+        iconElement.className = icon;
+        iconElement.setAttribute('aria-hidden', 'true');
+        iconSpan.appendChild(iconElement);
+
+        const tempSpan = document.createElement('span');
+        tempSpan.className = 'forecast-temp';
+        tempSpan.textContent = `${high}° / ${low}°`;
+
+        li.appendChild(daySpan);
+        li.appendChild(iconSpan);
+        li.appendChild(tempSpan);
+        forecastList.appendChild(li);
+    }
 }
 
 function displayWeatherError() {
     const currentWeatherDiv = document.querySelector('.current-weather');
     const forecastList = document.querySelector('.forecast-list');
 
-    const errorHTML = `
-        <div class="weather-error">
-            <i class="fas fa-exclamation-circle" aria-hidden="true"></i>
-            <p>Unable to load weather information. Please try again later.</p>
-        </div>
-    `;
+    const createErrorElement = () => {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'weather-error';
+        
+        const iconElement = document.createElement('i');
+        iconElement.className = 'fas fa-exclamation-circle';
+        iconElement.setAttribute('aria-hidden', 'true');
+        
+        const messagePara = document.createElement('p');
+        messagePara.textContent = 'Unable to load weather information. Please try again later.';
+        
+        errorDiv.appendChild(iconElement);
+        errorDiv.appendChild(messagePara);
+        return errorDiv;
+    };
 
-    if (currentWeatherDiv) currentWeatherDiv.innerHTML = errorHTML;
-    if (forecastList) forecastList.innerHTML = errorHTML;
+    if (currentWeatherDiv) {
+        currentWeatherDiv.innerHTML = '';
+        currentWeatherDiv.appendChild(createErrorElement());
+    }
+    
+    if (forecastList) {
+        forecastList.innerHTML = '';
+        forecastList.appendChild(createErrorElement());
+    }
 }
 
 function getWeatherIcon(code) {
@@ -189,49 +308,23 @@ function getFakeWeatherData() {
             "wind_speed_10m": 11.9,
             "weather_code": 1
         },
-        "hourly_units": {
+        "daily_units": {
             "time": "iso8601",
-            "temperature_2m": "°C",
-            "relative_humidity_2m": "%",
-            "wind_speed_10m": "km/h"
+            "temperature_2m_max": "°C",
+            "temperature_2m_min": "°C",
+            "weather_code": "wmo code"
         },
-        "hourly": {
+        "daily": {
             "time": [
-                "2023-05-16T00:00",
-                "2023-05-16T01:00",
-                "2023-05-16T02:00",
-                "2023-05-16T03:00",
-                "2023-05-16T04:00",
-                "2023-05-16T05:00",
-                "2023-05-16T06:00"
+                "2023-05-16",
+                "2023-05-17",
+                "2023-05-18",
+                "2023-05-19",
+                "2023-05-20"
             ],
-            "temperature_2m": [
-                13.7,
-                13.3,
-                12.8,
-                12.3,
-                11.8,
-                11.4,
-                12.2
-            ],
-            "relative_humidity_2m": [
-                82,
-                83,
-                86,
-                85,
-                88,
-                88,
-                84
-            ],
-            "wind_speed_10m": [
-                3.2,
-                3.0,
-                3.3,
-                3.1,
-                3.2,
-                3.0,
-                3.5
-            ]
+            "temperature_2m_max": [22.5, 24.1, 21.8, 19.5, 23.0],
+            "temperature_2m_min": [12.3, 14.0, 13.2, 11.8, 12.5],
+            "weather_code": [1, 2, 61, 3, 0]
         }
     };
 }
